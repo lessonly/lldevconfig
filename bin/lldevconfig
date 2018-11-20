@@ -1,1 +1,14 @@
 #!/bin/bash
+
+CURRENT_USER=`whoami`
+CURRENT_HOME=$HOME
+
+
+if [ $# -eq 0 ]; then
+COMMAND="state.highstate"
+else
+COMMAND= $@
+fi
+
+salt-call -c ~/.lldev $COMMAND
+

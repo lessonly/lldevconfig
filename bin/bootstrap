@@ -1,0 +1,39 @@
+#!/bin/bash
+CURRENT_USER=`whoami`
+CHECKOUTPATH="$( cd "$(dirname "$0")" ; cd ..; pwd -P )"
+
+if [ $CURRENT_USER = "root" ]; then
+echo "Please run this as your normal user, not root"
+exit 1
+fi
+
+# only run if the installdir doesn't exist
+if [ -d $HOME/.lldev ]; then
+echo "$HOME/.lldev already exists.  Exiting"
+exit 1
+fi
+
+echo "Installing Lessonly Local Development tools"
+
+# set up base config
+echo "Making $HOME/.lldev"
+mkdir $HOME/.lldev
+cp $CHECKOUTPATH/base_config/minion $HOME/.lldev/minion
+
+GRAINS=$HOME/.lldev/grains
+
+#
+# Ugly but straightforward
+#
+touch $GRAINS
+echo "user:" >> $GRAINS;
+echo "  username: $CURRENT_USER" >> $GRAINS;
+echo "  install_user: $CURRENT_USER" >> $GRAINS;
+echo "  homedir: $HOME" >> $GRAINS;
+echo "" >> $GRAINS;
+echo "lldev:" >> $GRAINS;
+echo "  src_dir: $CHECKOUTPATH" >> $GRAINS;
+echo "  install_dir: $HOME/.lldev" >> $GRAINS;
+echo "" >> $GRAINS;
+
+sed -e '1,/ - COPY BELOW HERE -/d' <$CHECKOUTPATH/base_config/grains >>$GRAINS

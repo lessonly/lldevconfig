@@ -1,0 +1,7 @@
+
+file_client: local
+user: gregors
+sudo_user: root
+file_roots:
+  base:
+    - /Users/gregors/dev/lldev-config
