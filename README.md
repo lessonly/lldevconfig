@@ -32,7 +32,8 @@ Run this command in sudo.  It will drop down to your user when it can.  I origin
 
 And you should be done.
 
-If you want to see what all is going to be performed before running it you can do the following.
+If you want to see what all is going to be performed before running it you can do the following:
+
 ``` sudo bin/lldevconfig state.highstate test=True```
 
 
