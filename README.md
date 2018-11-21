@@ -17,6 +17,15 @@ Install salt (it does the heavy lifting)
 
 ```brew install salt```
 
+## Ubuntu
+
+
+[Install Salt Deb Repo](https://repo.saltstack.com/#ubuntu)
+
+after that you will want to 
+
+```apt-get install python-m2crypto```
+
 ### Bootstrap the script
 
 This creates the .lldev directory, and sticks 2 configuration files in it.  `minions` you should never have to touch.   `grains` contains configuration options that we might want to change at some point based on preferences.
