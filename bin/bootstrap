@@ -25,6 +25,8 @@ GRAINS=$HOME/.lldev/grains
 #
 # Ugly but straightforward
 #
+# produce the grains file
+#
 touch $GRAINS
 echo "user:" >> $GRAINS;
 echo "  username: $CURRENT_USER" >> $GRAINS;
@@ -37,3 +39,15 @@ echo "  install_dir: $HOME/.lldev" >> $GRAINS;
 echo "" >> $GRAINS;
 
 sed -e '1,/ - COPY BELOW HERE -/d' <$CHECKOUTPATH/base_config/grains >>$GRAINS
+
+#
+# produce the salt minion config
+#
+MINION=$HOME/.lldev/minion
+
+echo "file_client: local" >> $MINION
+echo "user: $CURRENT_USER" >> $MINION
+echo "sudo_user: root" >> $MINION
+echo "file_roots:" >> $MINION
+echo "  base:" >> $MINION
+echo "    - $CHECKOUTPATH" >> $MINION
