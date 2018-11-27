@@ -22,7 +22,7 @@ Install salt (it does the heavy lifting)
 
 [Install Salt Deb Repo](https://repo.saltstack.com/#ubuntu)
 
-after that you will want to 
+After that is installed, ensure the mcrypt package is installed: 
 
 ```apt-get install python-m2crypto```
 

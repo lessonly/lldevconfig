@@ -18,7 +18,6 @@ echo "Installing Lessonly Local Development tools"
 # set up base config
 echo "Making $HOME/.lldev"
 mkdir $HOME/.lldev
-cp $CHECKOUTPATH/base_config/minion $HOME/.lldev/minion
 
 GRAINS=$HOME/.lldev/grains
 
@@ -51,3 +50,6 @@ echo "sudo_user: root" >> $MINION
 echo "file_roots:" >> $MINION
 echo "  base:" >> $MINION
 echo "    - $CHECKOUTPATH" >> $MINION
+echo "pillar_roots:" >> $MINION
+echo "  base:" >> $MINION
+echo "    - $CHECKOUTPATH/pillar" >> $MINION

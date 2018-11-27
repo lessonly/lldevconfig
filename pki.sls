@@ -1,4 +1,4 @@
-{% set base_dir = grains['lldev']['install_dir'] + "pki" %}
+{% set base_dir = grains['lldev']['install_dir'] + "/pki" %}
 {% set user     = grains['user']['username'] %}
 
 #
@@ -80,4 +80,44 @@ install_ca_cert:
             - x509: test.lessonly.ca.crt
         - require:
             - x509: test.lessonly.ca.crt
+{% endif %}
+{% if grains['os_family'] == 'Debian' %}
+
+/usr/local/share/ca-certificates/lldev:
+  file.directory:
+    - mode: 755
+
+
+/usr/local/share/ca-certificates/lldev-ca.crt:
+  file.managed:
+    - mode: 644
+    - source:  {{base_dir}}/ca.crt
+    - require:
+      - file: /usr/local/share/ca-certificates/lldev
+      - x509: test.lessonly.ca.crt
+
+
+libnss3-tools:
+  pkg.installed
+
+install_ca_cert:
+    cmd.run:
+        - name: update-ca-certificates
+        - onchanges:
+            - x509: test.lessonly.ca.crt
+            - file: /usr/local/share/ca-certificates/lldev-ca.crt
+        - require:
+            - x509: test.lessonly.ca.crt
+            - file: /usr/local/share/ca-certificates/lldev-ca.crt
+
+install_ca_cert_ff:
+    cmd.run:
+        - name: certutil -d sql:$HOME/.pki/nssdb -A -t "C,C,C" -n lldev-ca -i /usr/local/share/ca-certificates/lldev-ca.crt
+        - onchanges:
+            - x509: test.lessonly.ca.crt
+            - file: /usr/local/share/ca-certificates/lldev-ca.crt
+        - require:
+            - x509: test.lessonly.ca.crt
+            - file: /usr/local/share/ca-certificates/lldev-ca.crt
+
 {% endif %}
