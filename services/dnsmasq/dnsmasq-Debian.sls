@@ -1,4 +1,12 @@
 
+
+/etc/NetworkManager/dnsmasq.d/lessonly-test:
+    file.managed:
+        - template: jinja
+        - source: salt://services/dnsmasq/dnsmasq-ubuntu.conf
+        - require:
+            - pkg: dnsmasq
+
 dnsmasq-service:
     service.running:
         - name: dnsmasq
@@ -7,8 +15,9 @@ dnsmasq-service:
         - watch:
             - network: lo1
             - pkg: dnsmasq
-            - file: {{pillar['dnsmasq_config_file']}}
+            - file: /etc/NetworkManager/dnsmasq.d/lessonly-test
         - require:
             - network: lo1
             - pkg: dnsmasq
-            - file: {{pillar['dnsmasq_config_file']}}
+            - file: /etc/NetworkManager/dnsmasq.d/lessonly-test
+
