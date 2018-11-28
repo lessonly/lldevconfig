@@ -5,10 +5,9 @@ CURRENT_HOME=$HOME
 
 
 if [ $# -eq 0 ]; then
-COMMAND="state.highstate"
+salt-call -c ~/.lldev state.highstate
 else
-COMMAND= $@
+salt-call -c ~/.lldev $@
 fi
 
-salt-call -c ~/.lldev $COMMAND
 
