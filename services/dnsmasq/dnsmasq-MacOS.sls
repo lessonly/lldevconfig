@@ -16,7 +16,7 @@ dnsmasq.conf:
     file.managed:
         - template: jinja
         - source: salt://services/dnsmasq/dnsmasq.conf
-        - name: {{pillar['nginx']['server_file']}}
+        - name: /usr/local/etc/dnsmasq.conf
         - user: {{ grains['user']['install_user']}}
         - require:
             - pkg: dnsmasq

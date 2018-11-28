@@ -22,6 +22,8 @@ test.lessonly.ca.key:
     - name: {{base_dir}}/ca.key
     - runas: {{user}}
     - bits: 4096
+    - require:
+      - file: pki_dir
 
 test.lessonly.ca.crt:
   x509.certificate_managed:
@@ -42,6 +44,7 @@ test.lessonly.ca.crt:
     - require:
       - x509: test.lessonly.ca.key
       - file: {{base_dir}}
+      - file: pki_dir
 
 # Generate wildcard cert signed by CA
 test.lessonly.wildcard.crt:
@@ -68,6 +71,7 @@ test.lessonly.wildcard.crt:
       - x509: test.lessonly.ca.key
       - x509: test.lessonly.ca.crt
       - file: {{base_dir}}
+      - file: pki_dir
 
 {% if grains['os_family'] == 'MacOS' %}
 #
