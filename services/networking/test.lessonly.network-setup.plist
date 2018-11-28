@@ -3,7 +3,6 @@
 <plist version="1.0">
   <dict>
     <key>Label</key>
-    <string>sudo</string>
     <string>test.lessonly.network-setup</string>
     <key>Program</key>
     <string>/usr/local/bin/lldev-network-setup.sh</string>
@@ -15,11 +14,5 @@
     <string>/tmp/lldev-network-setup.stdout</string>
     <key>StandardErrorPath</key>
     <string>/tmp/lldev-network-setup.stderr</string>
-    <key>UserName</key>
-    <string>admin</string>
-    <key>GroupName</key>
-    <string>admin</string>
-    <key>InitGroups</key>
-    <true/>
   </dict>
 </plist>

@@ -1,6 +1,6 @@
 
 
-/etc/NetworkManager/dnsmasq.d/lessonly-test:
+/etc/dnsmasq.d/lessonly-test:
     file.managed:
         - template: jinja
         - source: salt://services/dnsmasq/dnsmasq-ubuntu.conf
@@ -15,9 +15,10 @@ dnsmasq-service:
         - watch:
             - network: lo1
             - pkg: dnsmasq
-            - file: /etc/NetworkManager/dnsmasq.d/lessonly-test
+            - file: /etc/dnsmasq.d/lessonly-test
         - require:
             - network: lo1
             - pkg: dnsmasq
-            - file: /etc/NetworkManager/dnsmasq.d/lessonly-test
+            - file: /etc/dnsmasq.d/lessonly-test
 
+ 

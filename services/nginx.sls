@@ -19,7 +19,7 @@ nginx:
 
 nginx.conf:
     file.managed:
-        - name: {{grains['lldev']['install_dir']}}/etc/nginx.conf
+        - name: {{pillar['nginx']['server_file']}}
         - source: salt://services/nginx/nginx.conf
         - template: jinja
         - makedirs: True
