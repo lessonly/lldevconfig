@@ -1,0 +1,1 @@
+nameserver {{grains.get('dev_setup:lessonly_dev_ip_base','127.0.0.2')}}
