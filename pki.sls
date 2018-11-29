@@ -9,14 +9,14 @@ pki_dir:
     - name: {{base_dir}}
     - user: {{user}}
 
+
+# This is where generated ssl certs will be stored
 issued_certs_dir:
   file.directory:
     - name: {{base_dir}}/issued_certs
     - user: {{user}}
 
-#
-# Generate Certificate Authority 
-#
+# Generate Certificate Authority Key
 test.lessonly.ca.key:
   x509.private_key_managed:
     - name: {{base_dir}}/ca.key
@@ -25,6 +25,10 @@ test.lessonly.ca.key:
     - require:
       - file: pki_dir
 
+# Generate Certificate Authority Cert
+#
+# Should only regenerate if cert is exipired
+#
 test.lessonly.ca.crt:
   x509.certificate_managed:
     - name: {{base_dir}}/ca.crt
@@ -85,7 +89,9 @@ install_ca_cert:
         - require:
             - x509: test.lessonly.ca.crt
 {% endif %}
+
 {% if grains['os_family'] == 'Debian' %}
+
 
 /usr/local/share/ca-certificates/lldev:
   file.directory:

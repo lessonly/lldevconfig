@@ -1,22 +1,16 @@
 # split services based on OS
 #
-{% if grains['os_family'] == 'Debian' %}
 
 include:
-    - services.nginx.nginx-linux
+    - services.nginx.nginx-{{grains['os_family']}}
 
-{% elif grains['os_family'] == 'MacOS' %}
-
-include:
-    - services.nginx.nginx-mac
-
-{% endif %}
-
+# install nginx
 nginx:
     pkg.installed:
         - runas: {{ grains['user']['install_user']}}
 
 
+# install nginx config for our servers
 nginx.conf:
     file.managed:
         - name: {{pillar['nginx']['server_file']}}

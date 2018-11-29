@@ -1,7 +1,11 @@
 
 
+#
+# MacOS Specific states for dnsmasq
+#
 
 
+# Enable the dns masq service through homebrew
 load-dnsmasq-plist:
     cmd.run:
         - name: brew services restart dnsmasq
@@ -12,16 +16,22 @@ load-dnsmasq-plist:
             - pkg: dnsmasq
             - file: dnsmasq.conf
 
+#
+# install our dnsmasq.conf
+#
 dnsmasq.conf:
     file.managed:
         - template: jinja
-        - source: salt://services/dnsmasq/dnsmasq.conf
+        - source: salt://services/dnsmasq/dnsmasq-MacOS.conf
         - name: /usr/local/etc/dnsmasq.conf
         - user: {{ grains['user']['install_user']}}
         - require:
             - pkg: dnsmasq
 
 
+#
+# install our resolver configuration
+#
 /etc/resolver/lessonly.test:
     file.managed:
         - user: root

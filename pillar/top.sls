@@ -1,3 +1,6 @@
+#
+# This file determines which pillars get applied to the system
+#
 base:
     '*':
       - defaults

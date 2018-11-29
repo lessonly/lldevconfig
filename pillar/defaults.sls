@@ -1,5 +1,6 @@
-nginx_https_port: 8443
-nginx_http_port: 8080
+#
+# This file contains default values included on all systems
+#
 
 default_found: true
 

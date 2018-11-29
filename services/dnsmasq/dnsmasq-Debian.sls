@@ -1,9 +1,11 @@
-
+#
+# Debian specific configuration of DnsMasq
+#
 
 /etc/dnsmasq.d/lessonly-test:
     file.managed:
         - template: jinja
-        - source: salt://services/dnsmasq/dnsmasq-ubuntu.conf
+        - source: salt://services/dnsmasq/dnsmasq-Debian.conf
         - require:
             - pkg: dnsmasq
 

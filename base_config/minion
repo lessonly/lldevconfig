@@ -7,4 +7,4 @@ file_roots:
     - /Users/gregors/dev/lldev-config
 pillar_roots:
   base:
-    - /Users/gregors/dev/lldev-config/pillar
+  - /Users/gregors/dev/lldev-config/pillar
