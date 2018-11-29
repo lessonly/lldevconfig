@@ -3,9 +3,8 @@
 CURRENT_USER=`whoami`
 CURRENT_HOME=$HOME
 
-
 if [ $# -eq 0 ]; then
-salt-call -c ~/.lldev state.highstate
+salt-call -c ~/.lldev state.highstate --state-output=terse
 else
 salt-call -c ~/.lldev $@
 fi
