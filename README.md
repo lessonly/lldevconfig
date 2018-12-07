@@ -11,8 +11,6 @@ This project is intended for the purposes of making it easy to share and maintai
 
 It is assumed you have homebrew installed.  
 
-### Install Salt
-
 Install salt (it does the heavy lifting)
 
 ```brew install salt```
@@ -26,14 +24,16 @@ After that is installed, ensure the mcrypt package is installed:
 
 ```apt-get install python-m2crypto```
 
-### Bootstrap the script
+# run the scripts
+
+## Bootstrap the script
 
 This creates the .lldev directory, and sticks 2 configuration files in it.  `minions` you should never have to touch.   `grains` contains configuration options that we might want to change at some point based on preferences.
 
 ```bin/bootstrap```
 
 
-### Run lldevconfig
+## Run lldevconfig
 
 Run this command in sudo.  It will drop down to your user when it can.  I originally wanted to seperate the root level access from the user-level, but it is going to end up being different on different operating systems.
 
