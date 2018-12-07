@@ -50,6 +50,14 @@ If you want to see what all is going to be performed before running it you can d
 
 This is script uses salt to manage the state of your machine.  The goal is to stay out of your way and be a good citizen.  The goal is for all files to live in the ~/.lldev directory when possible.  There are other files (service, configurations that may have to be put elsewhere).
 
+## Configuration
+
+Some configuration can be managed via grains:
+
+Look here to see what all gets set up:
+
+https://github.com/lessonly/lldevconfig/blob/master/base_config/grains
+
 # What is currently included
 
 ## Nginx Dev Frontend
