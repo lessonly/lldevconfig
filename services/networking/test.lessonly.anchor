@@ -1,3 +1,4 @@
 {% set ip_addr = grains['dev_setup']['lessonly_dev_ip_base'] %}
 rdr pass on lo0 inet proto tcp from any to {{ip_addr}} port 80 -> {{ip_addr}} port {{pillar['nginx']['http_port']}}
 rdr pass on lo0 inet proto tcp from any to {{ip_addr}} port 443 -> {{ip_addr}} port {{pillar['nginx']['https_port']}}
+rdr pass on lo0 inet proto tcp from any to {{ip_addr}} port 3001 -> 127.0.0.1 port 3001
