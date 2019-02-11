@@ -44,7 +44,7 @@ lldev:
 #
 dev_setup:
   lessonly_dev_hostname_base: lessonly.test
-  lessonly_dev_ip_base: 127.0.0.2
+  lessonly_dev_ip_base: 127.0.0.1
 
 # location of launchdaemons (macOS only)
 launch_daemons_dir: /Library/LaunchDaemons
