@@ -5,6 +5,12 @@ asdf:
         - branch: v0.7.2
         - runas: {{ grains['user']['username']}}
 
+asdf-macos:
+    cmd.run:
+        - name: echo -e '\n. $HOME/.asdf/asdf.sh\n. $HOME/.asdf/completions/asdf.bash' >> ~/.bash_profile
+        - unless: stat ~/.bashrc || stat ~/.bash_profile || stat ~/.zshrc
+        - runas: {{ grains['user']['username']}}
+
 asdf-bashrc:
     cmd.run:
         - name: echo -e '\n. $HOME/.asdf/asdf.sh\n. $HOME/.asdf/completions/asdf.bash' >> ~/.bashrc
