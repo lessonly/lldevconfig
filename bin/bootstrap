@@ -60,10 +60,12 @@ if [[ $? != 0 ]]; then
   cat ~/.ssh/github.pub
 
   which -s pbcopy
-  if [[ $? != 0 ]] ; then
+  if [[ $? == 0 ]] ; then
     cat ~/.ssh/github.pub | pbcopy
     echo "It's been copied into your clipboard, ready to paste into Github."
   fi
+
+  open https://github.com/settings/keys
 fi
 
 # only run if the installdir doesn't exist
