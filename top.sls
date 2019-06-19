@@ -3,8 +3,9 @@
 #
 base:
     '*':
+        - services.git
         - services.networking
         - services.nginx
-        - services.dnsmasq 
+        - services.dnsmasq
         - pki
-        
+        - services.asdf
