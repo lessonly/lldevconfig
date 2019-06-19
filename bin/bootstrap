@@ -46,6 +46,26 @@ else
   exit 1
 fi
 
+stat ~/.ssh/github
+if [[ $? != 0 ]]; then
+  echo "Github SSH key not found. Generating..."
+  # TODO: Get email address
+  echo "Enter your Lessonly email address: "
+  read email
+  ssh-keygen -f ~/.ssh/github -t rsa -b 4096 -C $email
+  eval "$(ssh-agent -s)"
+  ssh-add ~/.ssh/github
+
+  echo "SSH key generated. Add it to Github using these instructions: https://help.github.com/en/articles/adding-a-new-ssh-key-to-your-github-account"
+  cat ~/.ssh/github.pub
+
+  which -s pbcopy
+  if [[ $? != 0 ]] ; then
+    cat ~/.ssh/github.pub | pbcopy
+    echo "It's been copied into your clipboard, ready to paste into Github."
+  fi
+fi
+
 # only run if the installdir doesn't exist
 if [ -d $HOME/.lldev ]; then
 echo "$HOME/.lldev already exists.  Exiting"
