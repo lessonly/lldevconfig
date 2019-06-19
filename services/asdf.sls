@@ -1,7 +1,7 @@
 asdf:
     git.cloned:
         - name: https://github.com/asdf-vm/asdf.git
-        - target: ~/.asdf
+        - target: {{ grains['user']['homedir']}}/.asdf
         - branch: v0.7.2
         - runas: {{ grains['user']['username']}}
 
