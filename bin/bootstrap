@@ -8,7 +8,7 @@ exit 1
 fi
 
 # Install Salt
-if [[ “$OSTYPE” == “linux-gnu” ]]; then
+if [[ "$OSTYPE" == "linux-gnu" ]]; then
   # Linux
   which -s salt-call
   if [[ $? != 0 ]] ; then
@@ -26,7 +26,7 @@ if [[ “$OSTYPE” == “linux-gnu” ]]; then
     sudo systemctl restart salt-minion
   fi
 
-elif [[ “$OSTYPE” == “darwin”* ]]; then
+elif [[ "$OSTYPE" == "darwin"* ]]; then
   # macOS
   which -s brew
   if [[ $? != 0 ]] ; then
