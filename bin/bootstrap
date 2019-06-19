@@ -7,6 +7,45 @@ echo "Please run this as your normal user, not root"
 exit 1
 fi
 
+# Install Salt
+if [[ “$OSTYPE” == “linux-gnu” ]]; then
+  # Linux
+  which -s salt-call
+  if [[ $? != 0 ]] ; then
+    echo "Salt not found. Installing it."
+    sudo wget -O - https://repo.saltstack.com/apt/ubuntu/18.04/amd64/2019.2/SALTSTACK-GPG-KEY.pub | sudo apt-key add -
+    sudo deb http://repo.saltstack.com/apt/ubuntu/18.04/amd64/2019.2 bionic main
+    sudo apt-get install salt-master
+    sudo apt-get install salt-minion
+    sudo apt-get install salt-ssh
+    sudo apt-get install salt-syndic
+    sudo apt-get install salt-cloud
+    sudo apt-get install salt-api
+    sudo apt-get install python-m2crypto
+  else
+    sudo systemctl restart salt-minion
+  fi
+
+elif [[ “$OSTYPE” == “darwin”* ]]; then
+  # macOS
+  which -s brew
+  if [[ $? != 0 ]] ; then
+    echo "Homebrew not found. Installing it..."
+    ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+  else
+    echo "Homebrew found. Updating it..."
+    brew update
+  fi
+
+  which -s salt-call
+  if [[ $? != 0 ]] ; then
+    brew install salt
+  fi
+else
+  echo "I don't know how to use this OS"
+  exit 1
+fi
+
 # only run if the installdir doesn't exist
 if [ -d $HOME/.lldev ]; then
 echo "$HOME/.lldev already exists.  Exiting"
