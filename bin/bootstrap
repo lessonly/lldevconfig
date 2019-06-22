@@ -53,19 +53,23 @@ if [[ $? != 0 ]]; then
   echo "Enter your Lessonly email address: "
   read email
   ssh-keygen -f ~/.ssh/github -t rsa -b 4096 -C $email
-  eval "$(ssh-agent -s)"
+
+  eval "$(ssh-agent > /dev/null)"
   ssh-add ~/.ssh/github
 
   echo "SSH key generated. Add it to Github using these instructions: https://help.github.com/en/articles/adding-a-new-ssh-key-to-your-github-account"
   cat ~/.ssh/github.pub
 
-  which -s pbcopy
-  if [[ $? == 0 ]] ; then
+  if which pbcopy > /dev/null; then
     cat ~/.ssh/github.pub | pbcopy
     echo "It's been copied into your clipboard, ready to paste into Github."
   fi
 
-  open https://github.com/settings/keys
+  if which open > /dev/null; then
+    open https://github.com/settings/keys
+  elif which xdg-open > /dev/null; then
+    xdg-open https://github.com/settings/keys
+  fi
 fi
 
 # only run if the installdir doesn't exist
@@ -114,3 +118,5 @@ echo "    - $CHECKOUTPATH" >> $MINION
 echo "pillar_roots:" >> $MINION
 echo "  base:" >> $MINION
 echo "    - $CHECKOUTPATH/pillar" >> $MINION
+
+echo "Done."
