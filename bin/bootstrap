@@ -49,8 +49,7 @@ fi
 stat ~/.ssh/github
 if [[ $? != 0 ]]; then
   echo "Github SSH key not found. Generating..."
-  # TODO: Get email address
-  echo "Enter your Lessonly email address: "
+  echo "Enter your the email address you'll use for Github: "
   read email
   ssh-keygen -f ~/.ssh/github -t rsa -b 4096 -C $email
 
