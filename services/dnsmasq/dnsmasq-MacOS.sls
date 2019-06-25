@@ -44,6 +44,8 @@ dnsmasq.conf:
         - makedirs: True
         - source: /usr/local/opt/dnsmasq/homebrew.mxcl.dnsmasq.plist
         - name: /Library/LaunchDaemons/homebrew.mxcl.dnsmasq.plist
+        - require:
+            - pkg: dnsmasq
 
 #
 # run dnsmasq on boot
@@ -52,3 +54,9 @@ dnsmasq-launch-daemon:
     cmd.run:
         - name: launchctl load -w /Library/LaunchDaemons/homebrew.mxcl.dnsmasq.plist
         - runas: root
+        - watch:
+            - pkg: dnsmasq
+            - file: dnsmasq.conf
+        - require:
+            - pkg: dnsmasq
+            - file: /Library/LaunchDaemons/homebrew.mxcl.dnsmasq.plist

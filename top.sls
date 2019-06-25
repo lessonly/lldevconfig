@@ -1,6 +1,5 @@
 base:
     '*':
-        - zsh
         - libraries.libraries
         - services.networking
         - services.nginx

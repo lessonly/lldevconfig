@@ -10,6 +10,10 @@ fi
 # Install Salt
 if [[ "$OSTYPE" == "linux-gnu" ]]; then
   # Linux
+
+  sudo apt-get update
+  sudo apt-get upgrade
+
   which -s salt-call
   if [[ $? != 0 ]] ; then
     echo "Salt not found. Installing it."
@@ -46,18 +50,33 @@ else
   exit 1
 fi
 
+# Ensure zsh is installed
+echo "Installing zsh..."
+if [[ "$OSTYPE" == "linux-gnu" ]]; then
+  # Linux
+  sudo apt-get install zsh
+elif [[ "$OSTYPE" == "darwin"* ]]; then
+  # macOS
+  brew install zsh
+fi
+
+# Make zsh the default shell
+echo "Changing the default shell to zsh"
+chsh -s $(which zsh)
+
 stat ~/.ssh/github
 if [[ $? != 0 ]]; then
   echo "Github SSH key not found. Generating..."
-  echo "Enter your the email address you'll use for Github: "
+  echo -en "\n\033[1mEnter your the email address you'll use for Github:\033[0m "
   read email
   ssh-keygen -f ~/.ssh/github -t rsa -b 4096 -C $email
 
   eval "$(ssh-agent > /dev/null)"
   ssh-add ~/.ssh/github
 
-  echo "SSH key generated. Add it to Github using these instructions: https://help.github.com/en/articles/adding-a-new-ssh-key-to-your-github-account"
+  echo "SSH key generated. \033[1mAdd it to Github using these instructions:\033[0m https://help.github.com/en/articles/adding-a-new-ssh-key-to-your-github-account\n"
   cat ~/.ssh/github.pub
+  echo ""
 
   if which pbcopy > /dev/null; then
     cat ~/.ssh/github.pub | pbcopy
