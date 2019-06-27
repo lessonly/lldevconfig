@@ -7,6 +7,89 @@ echo "Please run this as your normal user, not root"
 exit 1
 fi
 
+# Install Salt
+if [[ "$OSTYPE" == "linux-gnu" ]]; then
+  # Linux
+
+  sudo apt-get update
+  sudo apt-get upgrade
+
+  which -s salt-call
+  if [[ $? != 0 ]] ; then
+    echo "Salt not found. Installing it."
+    sudo wget -O - https://repo.saltstack.com/apt/ubuntu/18.04/amd64/2019.2/SALTSTACK-GPG-KEY.pub | sudo apt-key add -
+    sudo deb http://repo.saltstack.com/apt/ubuntu/18.04/amd64/2019.2 bionic main
+    sudo apt-get install salt-master
+    sudo apt-get install salt-minion
+    sudo apt-get install salt-ssh
+    sudo apt-get install salt-syndic
+    sudo apt-get install salt-cloud
+    sudo apt-get install salt-api
+    sudo apt-get install python-m2crypto
+  else
+    sudo systemctl restart salt-minion
+  fi
+
+elif [[ "$OSTYPE" == "darwin"* ]]; then
+  # macOS
+  which -s brew
+  if [[ $? != 0 ]] ; then
+    echo "Homebrew not found. Installing it..."
+    ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+  else
+    echo "Homebrew found. Updating it..."
+    brew update
+  fi
+
+  which -s salt-call
+  if [[ $? != 0 ]] ; then
+    brew install salt
+  fi
+else
+  echo "I don't know how to use this OS"
+  exit 1
+fi
+
+# Ensure zsh is installed
+echo "Installing zsh..."
+if [[ "$OSTYPE" == "linux-gnu" ]]; then
+  # Linux
+  sudo apt-get install zsh
+elif [[ "$OSTYPE" == "darwin"* ]]; then
+  # macOS
+  brew install zsh
+fi
+
+# Make zsh the default shell
+echo "Changing the default shell to zsh"
+chsh -s $(which zsh)
+
+stat ~/.ssh/github
+if [[ $? != 0 ]]; then
+  echo "Github SSH key not found. Generating..."
+  echo -en "\n\033[1mEnter your the email address you'll use for Github:\033[0m "
+  read email
+  ssh-keygen -f ~/.ssh/github -t rsa -b 4096 -C $email
+
+  eval "$(ssh-agent > /dev/null)"
+  ssh-add ~/.ssh/github
+
+  echo "SSH key generated. \033[1mAdd it to Github using these instructions:\033[0m https://help.github.com/en/articles/adding-a-new-ssh-key-to-your-github-account\n"
+  cat ~/.ssh/github.pub
+  echo ""
+
+  if which pbcopy > /dev/null; then
+    cat ~/.ssh/github.pub | pbcopy
+    echo "It's been copied into your clipboard, ready to paste into Github."
+  fi
+
+  if which open > /dev/null; then
+    open https://github.com/settings/keys
+  elif which xdg-open > /dev/null; then
+    xdg-open https://github.com/settings/keys
+  fi
+fi
+
 # only run if the installdir doesn't exist
 if [ -d $HOME/.lldev ]; then
 echo "$HOME/.lldev already exists.  Exiting"
@@ -53,3 +136,5 @@ echo "    - $CHECKOUTPATH" >> $MINION
 echo "pillar_roots:" >> $MINION
 echo "  base:" >> $MINION
 echo "    - $CHECKOUTPATH/pillar" >> $MINION
+
+echo "Done."

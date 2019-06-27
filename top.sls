@@ -1,10 +1,9 @@
-#
-# This file determines which services get applied to which servers
-#
 base:
     '*':
+        - libraries.libraries
         - services.networking
         - services.nginx
-        - services.dnsmasq 
+        - services.dnsmasq
+        - services.postgresql
         - pki
-        
+        - services.asdf

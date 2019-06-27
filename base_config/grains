@@ -13,7 +13,7 @@
 # userinfo
 #
 # This script will run as root so that it can modify some things that require privilege
-# 
+#
 #
 user:
    username: gregors
@@ -21,7 +21,7 @@ user:
    homedir: $HOME
 
 #
-# Configuration about lldev files 
+# Configuration about lldev files
 #
 # src_dir: location of where the lldev-config project checked out
 # install_dir: files will be tranformed/generated. This is where MOST files will go
@@ -32,7 +32,7 @@ lldev:
   install_dir: /Users/gregors/.lldev
 
 #
-# 
+#
 #  - COPY BELOW HERE -
 #
 
