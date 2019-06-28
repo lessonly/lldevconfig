@@ -74,8 +74,12 @@ if [[ $? != 0 ]]; then
   read email
   ssh-keygen -f ~/.ssh/github -t rsa -b 4096 -C $email
 
+  echo "Adding SSH key to ssh-agent and keychain"
   eval "$(ssh-agent > /dev/null)"
-  ssh-add ~/.ssh/github
+  ssh-add -K ~/.ssh/github
+  if ! grep "~/.ssh/github" ~/.ssh/config; then
+    echo -e '\n\nHost Github\n  HostName github.com\n  AddKeysToAgent yes\n  UseKeychain yes\n  IdentityFile ~/.ssh/github' >> ~/.ssh/config
+  fi
 
   echo "SSH key generated. \033[1mAdd it to Github using these instructions:\033[0m https://help.github.com/en/articles/adding-a-new-ssh-key-to-your-github-account\n"
   cat ~/.ssh/github.pub
