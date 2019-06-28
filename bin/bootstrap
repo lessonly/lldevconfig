@@ -51,18 +51,21 @@ else
 fi
 
 # Ensure zsh is installed
-echo "Installing zsh..."
-if [[ "$OSTYPE" == "linux-gnu" ]]; then
-  # Linux
-  sudo apt-get install zsh
-elif [[ "$OSTYPE" == "darwin"* ]]; then
-  # macOS
-  brew install zsh
+if ! which zsh > /dev/null; then
+  echo "Installing zsh..."
+  if [[ "$OSTYPE" == "linux-gnu" ]]; then
+    # Linux
+    sudo apt-get install zsh
+  elif [[ "$OSTYPE" == "darwin"* ]]; then
+    # macOS
+    brew install zsh
+  fi
 fi
 
 # Make zsh the default shell
 echo "Changing the default shell to zsh"
 chsh -s $(which zsh)
+touch ~/.zshrc
 
 stat ~/.ssh/github
 if [[ $? != 0 ]]; then
