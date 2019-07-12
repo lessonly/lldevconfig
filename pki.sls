@@ -24,6 +24,7 @@ test.lessonly.ca.key:
     - bits: 4096
     - require:
       - file: pki_dir
+      - file: issued_certs_dir
 
 # Generate Certificate Authority Cert
 #
