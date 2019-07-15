@@ -67,6 +67,10 @@ echo "Changing the default shell to zsh"
 chsh -s $(which zsh)
 touch ~/.zshrc
 
+# Install oh-my-zsh
+sh bin/oh-my-zsh.sh
+
+
 stat ~/.ssh/github
 if [[ $? != 0 ]]; then
   echo "Github SSH key not found. Generating..."
