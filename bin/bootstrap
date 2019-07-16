@@ -7,6 +7,10 @@ echo "Please run this as your normal user, not root"
 exit 1
 fi
 
+
+# Enable key repeat.  Editors are super awkward without this
+defaults write -g ApplePressAndHoldEnabled -bool false
+
 # Install Salt
 if [[ "$OSTYPE" == "linux-gnu" ]]; then
   # Linux
