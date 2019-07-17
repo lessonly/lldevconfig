@@ -7,6 +7,10 @@ echo "Please run this as your normal user, not root"
 exit 1
 fi
 
+
+# Enable key repeat.  Editors are super awkward without this
+defaults write -g ApplePressAndHoldEnabled -bool false
+
 # Install Salt
 if [[ "$OSTYPE" == "linux-gnu" ]]; then
   # Linux
@@ -66,6 +70,10 @@ fi
 echo "Changing the default shell to zsh"
 chsh -s $(which zsh)
 touch ~/.zshrc
+
+# Install oh-my-zsh
+sh bin/oh-my-zsh.sh
+
 
 stat ~/.ssh/github
 if [[ $? != 0 ]]; then
