@@ -9,4 +9,7 @@ gpg:
     pkg.installed:
         - runas: {{ grains['user']['install_user']}}
 
+openssl:
+    pkg.installed:
+        - runas: {{ grains['user']['install_user']}}
 
