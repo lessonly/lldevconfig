@@ -36,6 +36,19 @@ When you receive your Lessonly MacBook, start here before setting up other tools
     ```sh
     sudo bin/lldevconfig
     ```
+    - If this fails with the following error messages:
+        ```
+        Comment: State 'x509.private_key_managed' was not found in SLS 'pki'
+        Reason: 'x509' __virtual__ returned False: Could not load x509 state: m2crypto 
+        ```
+        You will need to run the following two commands
+        ```
+        brew install swig
+        ```
+        ```
+        /usr/local/Cellar/salt/3003/libexec/bin/pip3.9 install m2crypto
+        ```
+        > Note: your salt version may be different so tab complete to replace 3003 with the version you have installed
     - This sometimes fails to restart nginx and dnsmasq. If this happens, run the above command a second time. It usually works then.
     - You may need to click "Allow" in a popup window for nginx.
     - If you want to see what all is going to be performed before running it you can do the following:
