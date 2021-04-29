@@ -49,6 +49,14 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then
   if [[ $? != 0 ]] ; then
     brew install salt
   fi
+
+  # bug with current salt setup which requires manually installing m2crypto which requires swig
+  echo "Installing swig"
+  brew list swig &>/dev/null || brew install swig
+
+  # lessons app needs this until we remove mimemagic dependency
+  echo "Installing shared-mime-info"
+  brew list shared-mime-info &>/dev/null || brew install shared-mime-info
 else
   echo "I don't know how to use this OS"
   exit 1
