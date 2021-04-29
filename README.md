@@ -41,10 +41,7 @@ When you receive your Lessonly MacBook, start here before setting up other tools
         Comment: State 'x509.private_key_managed' was not found in SLS 'pki'
         Reason: 'x509' __virtual__ returned False: Could not load x509 state: m2crypto 
         ```
-        You will need to run the following two commands
-        ```
-        brew install swig
-        ```
+        You will need to run the following command
         ```
         /usr/local/Cellar/salt/3003/libexec/bin/pip3.9 install m2crypto
         ```
