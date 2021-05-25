@@ -4,9 +4,6 @@ This project is intended for the purposes of making it easy to share and maintai
 
 When you receive your Lessonly MacBook, start here before setting up other tools.
 
-
-@TODO make this work for non-mac developers as well
-
 # Getting Started
 
 ## MacOS
@@ -27,10 +24,11 @@ When you receive your Lessonly MacBook, start here before setting up other tools
     - This will require user input a few times, including:
     - Enter your computer password to install Homebrew
     - Enter your computer password to change your default shell
+    **Note:** this will launch a new instace of zsh. Type `exit` to continue running this script
     - Enter the email address you use in Github to create your SSH key
-    - Enter a password to protect your SSH key
+    - Enter a password to protect your SSH key (you will be asked 3 times)
     - Add your SSH key in Github. It should copy the key and open a page to [the Github SSH keys page](https://github.com/settings/keys) for you to make it easy.
-6. Open a new Terminal window and close the old one so that it loads zsh. This step is optional.
+6. Once this script completes, you should close this window and open a new terminal so that it loads zsh.
 7. `cd` to the `lldevconfig` project directory.
 8. Run the configuration script with `sudo`.
     ```sh
@@ -53,7 +51,7 @@ When you receive your Lessonly MacBook, start here before setting up other tools
         sudo bin/lldevconfig state.highstate test=True
         ```
 
-At this point, you have everything you need to clone a project and follow its setup instructions. We recommend visiting https://github.com/lessonly/lessonly and following the setup instructions there, first. That's our core app and most likely where you'll be spending more of your time.
+At this point, you have everything you need to clone a project and follow its setup instructions. We recommend visiting https://github.com/lessonly/lessonly#getting-started and following the setup instructions there, first. That's our core app and most likely where you'll be spending more of your time.
 
 ## Other operating systems
 
