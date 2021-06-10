@@ -18,6 +18,5 @@ nginx.conf:
         - template: jinja
         - makedirs: True
         - user: {{ grains['user']['username'] }}
-        - require: 
+        - require:
             - pkg: nginx
-
