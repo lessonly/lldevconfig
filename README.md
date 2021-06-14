@@ -24,7 +24,6 @@ When you receive your Lessonly MacBook, start here before setting up other tools
     - This will require user input a few times, including:
     - Enter your computer password to install Homebrew
     - Enter your computer password to change your default shell
-    **Note:** this will launch a new instace of zsh. Type `exit` to continue running this script
     - Enter the email address you use in Github to create your SSH key
     - Enter a password to protect your SSH key (you will be asked 3 times)
     - Add your SSH key in Github. It should copy the key and open a page to [the Github SSH keys page](https://github.com/settings/keys) for you to make it easy.
