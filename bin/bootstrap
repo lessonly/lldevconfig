@@ -76,7 +76,9 @@ fi
 
 # Make zsh the default shell
 echo "Changing the default shell to zsh"
-chsh -s $(which zsh)
+echo "You will be prompted for your password"
+
+sh -c "chsh -s $(which zsh)"
 touch ~/.zshrc
 
 # Install oh-my-zsh
