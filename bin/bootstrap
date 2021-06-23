@@ -62,27 +62,10 @@ else
   exit 1
 fi
 
-# Ensure zsh is installed
-if ! which zsh > /dev/null; then
-  echo "Installing zsh..."
-  if [[ "$OSTYPE" == "linux-gnu" ]]; then
-    # Linux
-    sudo apt-get install zsh
-  elif [[ "$OSTYPE" == "darwin"* ]]; then
-    # macOS
-    brew install zsh
-  fi
-fi
 
-# Make zsh the default shell
-echo "Changing the default shell to zsh"
-chsh -s $(which zsh)
-touch ~/.zshrc
-
-# Install oh-my-zsh
-sh bin/oh-my-zsh.sh
-
-
+#
+# Github ssh key setup
+#
 stat ~/.ssh/github
 if [[ $? != 0 ]]; then
   echo "Github SSH key not found. Generating..."
@@ -160,4 +143,21 @@ echo "pillar_roots:" >> $MINION
 echo "  base:" >> $MINION
 echo "    - $CHECKOUTPATH/pillar" >> $MINION
 
-echo "Done."
+
+# Ensure zsh is installed
+if ! which zsh > /dev/null; then
+  echo "Installing zsh..."
+  if [[ "$OSTYPE" == "linux-gnu" ]]; then
+    # Linux
+    sudo apt-get install zsh
+  elif [[ "$OSTYPE" == "darwin"* ]]; then
+    # macOS
+    brew install zsh
+  fi
+fi
+
+# Install oh-my-zsh
+sh -c "RUNZSH=no bin/oh-my-zsh.sh"
+
+
+echo "bin/bootstrap complete"
