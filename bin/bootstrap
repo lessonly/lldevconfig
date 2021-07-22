@@ -7,7 +7,6 @@ echo "Please run this as your normal user, not root"
 exit 1
 fi
 
-
 # Enable key repeat.  Editors are super awkward without this
 defaults write -g ApplePressAndHoldEnabled -bool false
 
@@ -62,7 +61,6 @@ else
   exit 1
 fi
 
-
 #
 # Github ssh key setup
 #
@@ -98,51 +96,44 @@ fi
 
 # only run if the installdir doesn't exist
 if [ -d $HOME/.lldev ]; then
-echo "$HOME/.lldev already exists.  Exiting"
-exit 1
+  echo "$HOME/.lldev already exists. Skipping this step"
+else
+  echo "Installing Lessonly Local Development tools"
+  # set up base config
+  echo "Making $HOME/.lldev"
+  mkdir $HOME/.lldev
+  GRAINS=$HOME/.lldev/grains
+  #
+  # Ugly but straightforward
+  #
+  # produce the grains file
+  #
+  touch $GRAINS
+  echo "user:" >> $GRAINS;
+  echo "  username: $CURRENT_USER" >> $GRAINS;
+  echo "  install_user: $CURRENT_USER" >> $GRAINS;
+  echo "  homedir: $HOME" >> $GRAINS;
+  echo "" >> $GRAINS;
+  echo "lldev:" >> $GRAINS;
+  echo "  src_dir: $CHECKOUTPATH" >> $GRAINS;
+  echo "  install_dir: $HOME/.lldev" >> $GRAINS;
+  echo "" >> $GRAINS;
+  sed -e '1,/ - COPY BELOW HERE -/d' <$CHECKOUTPATH/base_config/grains >>$GRAINS
+
+  #
+  # produce the salt minion config
+  #
+  MINION=$HOME/.lldev/minion
+  echo "file_client: local" >> $MINION
+  echo "user: $CURRENT_USER" >> $MINION
+  echo "sudo_user: root" >> $MINION
+  echo "file_roots:" >> $MINION
+  echo "  base:" >> $MINION
+  echo "    - $CHECKOUTPATH" >> $MINION
+  echo "pillar_roots:" >> $MINION
+  echo "  base:" >> $MINION
+  echo "    - $CHECKOUTPATH/pillar" >> $MINION
 fi
-
-echo "Installing Lessonly Local Development tools"
-
-# set up base config
-echo "Making $HOME/.lldev"
-mkdir $HOME/.lldev
-
-GRAINS=$HOME/.lldev/grains
-
-#
-# Ugly but straightforward
-#
-# produce the grains file
-#
-touch $GRAINS
-echo "user:" >> $GRAINS;
-echo "  username: $CURRENT_USER" >> $GRAINS;
-echo "  install_user: $CURRENT_USER" >> $GRAINS;
-echo "  homedir: $HOME" >> $GRAINS;
-echo "" >> $GRAINS;
-echo "lldev:" >> $GRAINS;
-echo "  src_dir: $CHECKOUTPATH" >> $GRAINS;
-echo "  install_dir: $HOME/.lldev" >> $GRAINS;
-echo "" >> $GRAINS;
-
-sed -e '1,/ - COPY BELOW HERE -/d' <$CHECKOUTPATH/base_config/grains >>$GRAINS
-
-#
-# produce the salt minion config
-#
-MINION=$HOME/.lldev/minion
-
-echo "file_client: local" >> $MINION
-echo "user: $CURRENT_USER" >> $MINION
-echo "sudo_user: root" >> $MINION
-echo "file_roots:" >> $MINION
-echo "  base:" >> $MINION
-echo "    - $CHECKOUTPATH" >> $MINION
-echo "pillar_roots:" >> $MINION
-echo "  base:" >> $MINION
-echo "    - $CHECKOUTPATH/pillar" >> $MINION
-
 
 # Ensure zsh is installed
 if ! which zsh > /dev/null; then
