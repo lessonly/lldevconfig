@@ -6,4 +6,3 @@ base:
         - services.dnsmasq
         - services.postgresql
         - pki
-        - services.asdf
