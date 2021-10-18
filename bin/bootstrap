@@ -136,11 +136,18 @@ if ! which zsh > /dev/null; then
   fi
 fi
 
-# Install oh-my-zsh
-sh -c "RUNZSH=no bin/oh-my-zsh.sh"
-
 # configure asdf for zsh
 # https://asdf-vm.com/guide/getting-started.html#_3-install-asdf
-echo -e "\n. $(brew --prefix asdf)/libexec/asdf.sh" >> ${ZDOTDIR:-~}/.zshrc
+if grep -q "asdf.sh" ${ZDOTDIR:-~}/.zshrc
+then
+    # noop as already exists
+    echo "asdf.sh already configured"
+else
+  echo -e "\n. $(brew --prefix asdf)/libexec/asdf.sh" >> ${ZDOTDIR:-~}/.zshrc
+  FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}" >> ~/.zprofile
+fi
+
+# Install oh-my-zsh
+sh -c "RUNZSH=no bin/oh-my-zsh.sh"
 
 echo "bin/bootstrap complete"
