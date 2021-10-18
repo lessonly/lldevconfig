@@ -44,7 +44,7 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then
     brew update
   fi
 
-  brew bundle
+  brew bundle -v
 else
   echo "I don't know how to use this OS"
   exit 1
