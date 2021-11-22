@@ -43,11 +43,26 @@ When you receive your Lessonly MacBook, start here before setting up other tools
     Comment: State 'x509.private_key_managed' was not found in SLS 'pki'
     Reason: 'x509' __virtual__ returned False: Could not load x509 state: m2crypto 
     ```
-    You will need to run the following command
+    You will need to install m2crypto manually with `salt` and `pip`
+
+    First we need to find the hightest version of `salt` installed and the highest version of `pip` installed
+    ```shell
+    ls /usr/local/Cellar/salt  
+    #=> salt versions displayed
+    #example => 3001       3001.1     3002.5     3003.3_2
+    
+    # replace the highest salt version you found in the below snippet
+    
+    ls /usr/local/Cellar/salt/{salt_version_found}/libexec/bin
+     #=> pipX version displayed
+     #example => pip3.9
+     ```
+    Finally you can install m2crypto with the correct highest versions and it may look like the below:
     ```
     /usr/local/Cellar/salt/3003/libexec/bin/pip3.9 install m2crypto
     ```
-    > Note: your salt version may be different so tab complete to replace 3003 with the version you have installed
+    > Note: your salt version may be different so tab or `ls` complete to replace 3003 with the version you have installed
+    
 10. Run `sudo bin/lldevconfig` again.  You should see 0 failures if it's successful.
 
 At this point, you have everything you need to clone a project and follow its setup instructions. We recommend visiting https://github.com/lessonly/lessonly#getting-started and following the setup instructions there, first. That's our core app and most likely where you'll be spending more of your time.
