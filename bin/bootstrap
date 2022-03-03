@@ -124,18 +124,6 @@ else
   echo "    - $CHECKOUTPATH/pillar" >> $MINION
 fi
 
-# Ensure zsh is installed
-if ! which zsh > /dev/null; then
-  echo "Installing zsh..."
-  if [[ "$OSTYPE" == "linux-gnu" ]]; then
-    # Linux
-    sudo apt-get install zsh
-  elif [[ "$OSTYPE" == "darwin"* ]]; then
-    # macOS
-    brew install zsh
-  fi
-fi
-
 # configure asdf for zsh
 # https://asdf-vm.com/guide/getting-started.html#_3-install-asdf
 if grep -q "asdf.sh" ${ZDOTDIR:-~}/.zshrc

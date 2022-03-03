@@ -9,5 +9,6 @@ brew "gpg"
 brew "openssl"
 brew "nginx"
 brew "dnsmasq"
-brew "postgresql"
+brew "postgresql" # provides pgdump, psql
+brew "zsh"
 brew "asdf"
