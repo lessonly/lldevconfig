@@ -13,7 +13,11 @@ http://*.lessonly.test:8081,
 lessonly.test:8443,
 *.lessonly.test:8443 {
 	encode zstd gzip
-	header Strict-Transport-Security "max-age=31536000; includeSubDomains; always"
+
+	@https {
+		protocol https
+	}
+	header @https Strict-Transport-Security "max-age=31536000; includeSubDomains; always"
 
 	# https://caddyserver.com/docs/caddyfile/directives/reverse_proxy#https
 	reverse_proxy 127.0.0.1:3000 {
