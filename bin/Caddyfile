@@ -1,0 +1,43 @@
+# Global options
+{
+	# https://caddyserver.com/docs/automatic-https#local-https
+	local_certs
+	# https://caddyserver.com/docs/caddyfile/directives/log#file
+	log {
+		output file /usr/local/var/log/caddy/caddy_access.log
+	}
+}
+
+(lessonly_rp) {
+	encode zstd gzip
+
+	respond * "LESSONLY"
+	respond /skills* "SKILLS"
+	respond /skills/graphql* "SKILLS server"
+
+	# reverse_proxy 127.0.0.1:3000 {
+	#     # https://caddyserver.com/docs/caddyfile/directives/reverse_proxy#https
+	#     header_up Host {upstream_hostport}
+	#     header_up X-Forwarded-Host {host}
+	# }
+	# reverse_proxy /skills* 127.0.0.1:3001 {
+	#     header_up Host {upstream_hostport}
+	#     header_up X-Forwarded-Host {host}
+	# }
+	# reverse_proxy /skills/graphql* 127.0.0.1:3002 {
+	#     header_up Host {upstream_hostport}
+	#     header_up X-Forwarded-Host {host}
+	# }
+}
+
+http://lessonly.test:8081, # without "http://" caddy assumes it to be https
+http://*.lessonly.test:8081,
+lessonly.test:8443,
+*.lessonly.test:8443 {
+    encode zstd gzip
+	header Strict-Transport-Security "max-age=31536000; includeSubDomains; always"
+
+	respond * "LESSONLY {method} {scheme} {host} {path} | u{uri} p{port} hp{hostport}"
+	respond /skills* "SKILLS"
+	respond /skills/graphql* "SKILLS server"
+}

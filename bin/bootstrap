@@ -23,6 +23,17 @@ fi
 # Install Dependencies via Brewfile
 brew bundle -v
 
+# Configure caddy
+# - reverse proxy for local *.lessonly.test
+# - automatic local certs
+cp bin/Caddyfile $(brew --prefix)/etc/Caddyfile
+# https://caddyserver.com/docs/automatic-https#local-https
+# add/trust caddy's local root CA certificate
+# it generates intermediate certificates from the root which are used to sign individual site certificates
+caddy trust
+# Start the service formula immediately and register it to launch at login
+brew services start caddy
+
 #
 # Github ssh key setup
 #
