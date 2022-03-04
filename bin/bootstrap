@@ -32,7 +32,7 @@ cp bin/Caddyfile $(brew --prefix)/etc/Caddyfile
 # it generates intermediate certificates from the root which are used to sign individual site certificates
 caddy trust
 # Start the service formula immediately and register it to launch at login
-brew services start caddy
+brew services restart caddy
 
 #
 # Github ssh key setup
