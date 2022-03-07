@@ -23,7 +23,7 @@ fi
 # Install Dependencies via Brewfile
 brew bundle -v
 
-# Configure caddy
+# Configure Caddy
 # - reverse proxy for local *.lessonly.test
 # - automatic local certs
 cp bin/Caddyfile $(brew --prefix)/etc/Caddyfile
@@ -31,8 +31,17 @@ cp bin/Caddyfile $(brew --prefix)/etc/Caddyfile
 # add/trust caddy's local root CA certificate
 # it generates intermediate certificates from the root which are used to sign individual site certificates
 caddy trust
-# Start the service formula immediately and register it to launch at login
+# stop (if necessary) and start the service formula immediately and register it to launch at login.
 brew services restart caddy
+
+# Configure Dnsmasq
+# dnsmasq handles the local dns translation from *.lessonly.test -> 127.0.0.1
+# install dnsmasq config
+cp bin/dnsmasq.conf $(brew --prefix)/etc/dnsmasq.conf
+# install our resolver
+sudo cp bin/lessonly-resolver /etc/resolver/lessonly.test
+# stop (if necessary) and start the service formula immediately and register it to launch at boot.
+sudo brew services restart dnsmasq
 
 #
 # Github ssh key setup
