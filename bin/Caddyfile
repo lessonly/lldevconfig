@@ -1,3 +1,11 @@
+# After making changes to this file run:
+# caddy fmt -overwrite bin/Caddyfile
+# to have caddy formate it.
+# It won't start if there are formatting errors.
+
+# Tail the logs with:
+# tail -F /usr/local/var/log/caddy/caddy_access.log
+
 # Global options
 {
 	# https://caddyserver.com/docs/automatic-https#local-https
@@ -8,7 +16,9 @@
 	}
 }
 
-http://lessonly.test:8081, # without "http://" caddy assumes it to be https
+# explicitly list http endpoints so caddy doesn't do
+# automatic http -> https redirection.
+http://lessonly.test:8081,
 http://*.lessonly.test:8081,
 lessonly.test:8443,
 *.lessonly.test:8443 {
