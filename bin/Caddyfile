@@ -43,3 +43,10 @@ lessonly.test:8443,
 		header_up X-Forwarded-Host {host}
 	}
 }
+
+# to test if port forwarding, dnsmasq, and caddy are working:
+# curl -v https://caddystatus.lessonly.test
+http://caddystatus.lessonly.test:8081,
+caddystatus.lessonly.test:8443 {
+	respond "Caddy works: {method} {scheme}://{host}{path}"
+}
