@@ -19,9 +19,9 @@ else
   echo "Homebrew found. Updating it..."
   brew update
 fi
-
 # Install Dependencies via Brewfile
 brew bundle -v
+
 
 # Configure Caddy
 # - reverse proxy for local *.lessonly.test
@@ -34,6 +34,7 @@ caddy trust
 # stop (if necessary) and start the service formula immediately and register it to launch at login.
 brew services restart caddy
 
+
 # Configure Dnsmasq
 # dnsmasq handles the local dns translation from *.lessonly.test -> 127.0.0.1
 # install dnsmasq config
@@ -42,6 +43,22 @@ cp bin/dnsmasq.conf $(brew --prefix)/etc/dnsmasq.conf
 sudo cp bin/lessonly-resolver /etc/resolver/lessonly.test
 # stop (if necessary) and start the service formula immediately and register it to launch at boot.
 sudo brew services restart dnsmasq
+
+
+# Configure port forwarding
+# copy port forwarding anchor file
+sudo cp bin/test.lessonly.anchor /etc/pf.anchors/test.lessonly
+# copy boot script to setup port forwarding
+cp bin/lldev-network-setup.sh /usr/local/bin/lldev-network-setup.sh
+# manually run script
+sudo /usr/local/bin/lldev-network-setup.sh
+# set script to run on boot
+pfservice=$(sudo launchctl list | grep test.lessonly.network-setup)
+if [ ! "$pfservice" ] ; then
+  sudo cp bin/test.lessonly.network-setup.plist /Library/LaunchDaemons/test.lessonly.network-setup.plist
+  sudo launchctl load -w -F /Library/LaunchDaemons/test.lessonly.network-setup.plist
+fi
+
 
 #
 # Github ssh key setup
