@@ -1,10 +1,18 @@
 #!/bin/bash
 CURRENT_USER=`whoami`
-CHECKOUTPATH="$( cd "$(dirname "$0")" ; cd ..; pwd -P )"
 
 if [ $CURRENT_USER = "root" ]; then
 echo "Please run this as your normal user, not root"
 exit 1
+fi
+
+# Uninstall salt
+# If salt was previously installed remove it and nginx in
+# favor of the new method below.
+if command -v salt &> /dev/null ; then
+  echo "Uninstalling salt"
+  brew uninstall nginx
+  brew uninstall salt
 fi
 
 # Enable key repeat.  Editors are super awkward without this
