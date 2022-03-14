@@ -23,47 +23,12 @@ When you receive your Lessonly MacBook, start here before setting up other tools
     ```
     - This will require user input a few times, including:
     - Enter your computer password to install Homebrew
+    - Enter your computer password to install local root cert for Caddy
     - Enter your computer password to change your default shell
     - Enter the email address you use in Github to create your SSH key
     - Enter a password to protect your SSH key (you will be asked 3 times)
     - Add your SSH key in Github. It should copy the key and open a page to [the Github SSH keys page](https://github.com/settings/keys) for you to make it easy.
 6. Once this script completes, you should close this window and open a new terminal so that it loads zsh.
-7. `cd` to the `lldevconfig` project directory.
-8. Run the configuration script with `sudo`.
-    ```sh
-    sudo bin/lldevconfig
-    ```
-    - You may need to click "Allow" in a popup window for nginx.
-    - If you want to see what all is going to be performed before running it you can do the following:
-        ```sh
-        sudo bin/lldevconfig state.highstate test=True
-        ```
-9. When this fails with the following error messages:
-    ```
-    Comment: State 'x509.private_key_managed' was not found in SLS 'pki'
-    Reason: 'x509' __virtual__ returned False: Could not load x509 state: m2crypto 
-    ```
-    You will need to install m2crypto manually with `salt` and `pip`
-
-    First we need to find the hightest version of `salt` installed and the highest version of `pip` installed
-    ```shell
-    ls /usr/local/Cellar/salt  
-    #=> salt versions displayed
-    #example => 3001       3001.1     3002.5     3003.3_2
-    
-    # replace the highest salt version you found in the below snippet
-    
-    ls /usr/local/Cellar/salt/{salt_version_found}/libexec/bin
-     #=> pipX version displayed
-     #example => pip3.9
-     ```
-    Finally you can install m2crypto with the correct highest versions and it may look like the below:
-    ```
-    /usr/local/Cellar/salt/3003/libexec/bin/pip3.9 install m2crypto
-    ```
-    > Note: your salt version may be different so tab or `ls` complete to replace 3003 with the version you have installed
-    
-10. Run `sudo bin/lldevconfig` again.  You should see 0 failures if it's successful.
 
 At this point, you have everything you need to clone a project and follow its setup instructions. We recommend visiting https://github.com/lessonly/lessonly#getting-started and following the setup instructions there, first. That's our core app and most likely where you'll be spending more of your time.
 
@@ -73,22 +38,16 @@ We don't officially support other operating systems right now.
 
 # How It works
 
-This is script uses salt to manage the state of your machine.  The goal is to stay out of your way and be a good citizen.  The goal is for all files to live in the `~/.lldev` directory when possible.  There are other files (service, configurations that may have to be put elsewhere).
-
-## Configuration
-
-Some configuration can be managed via grains:
-
-Look here to see what all gets set up:
-
-https://github.com/lessonly/lldevconfig/blob/master/base_config/grains
+This is script sets up 3 things:
+  - port forwarding of 80 & 443 over to non-standard ports
+  - dnsmasq to handle `*.lessonly.test` domains
+  - caddy to handle certificates and reverse proxy to local lessonly
 
 # What is currently included
 
-## Nginx Dev Frontend
+## Caddy Dev Frontend
 
-- This script will start up an nginx instance that will serve as a reverse proxy to a rails backend on port 3000
-- This script also will generates a root CA, and trusts it for you.  It then signs a certificate for you that nginx will then use.
+- This script will start up a caddy instance that will serve as a reverse proxy to a rails backend on port 3000
 
 ## zsh
 
