@@ -134,7 +134,7 @@
         }
       },
       "heroku": {
-        "version": "7.59.2",
+        "version": "7.59.4",
         "bottle": false
       },
       "wget": {
@@ -510,7 +510,7 @@
     },
     "tap": {
       "heroku/brew": {
-        "revision": "67a2d7051e9d989cded7d0776b343022e6c8b03f"
+        "revision": "c40164a2a6776fd4158f64d10ee4cc2673e7069c"
       }
     }
   },
@@ -527,7 +527,7 @@
       "monterey": {
         "HOMEBREW_VERSION": "3.4.1",
         "HOMEBREW_PREFIX": "/usr/local",
-        "Homebrew/homebrew-core": "16dd6d43d12cc3a77ae90cd4712b33e3d745fe39",
+        "Homebrew/homebrew-core": "7c6c22befcb31e84cc0e4cdfc287efb5877b51b6",
         "CLT": "13.2.0.0.1.1638488800",
         "Xcode": "13.2.1",
         "macOS": "12.2.1"

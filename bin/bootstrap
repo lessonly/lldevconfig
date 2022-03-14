@@ -10,9 +10,11 @@ fi
 # If salt was previously installed remove it and nginx in
 # favor of the new method below.
 if command -v salt &> /dev/null ; then
-  echo "Uninstalling salt"
-  brew uninstall nginx
+  echo "Uninstalling salt/nginx"
   brew uninstall salt
+  brew uninstall swig
+  brew services stop nginx
+  brew uninstall nginx
 fi
 
 # Enable key repeat.  Editors are super awkward without this
