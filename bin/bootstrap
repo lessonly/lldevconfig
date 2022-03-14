@@ -15,6 +15,7 @@ if command -v salt &> /dev/null ; then
   brew uninstall swig
   brew services stop nginx
   brew uninstall nginx
+  rm -rf $HOME/.lldev
 fi
 
 # Enable key repeat.  Editors are super awkward without this
