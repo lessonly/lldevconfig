@@ -34,14 +34,8 @@ lessonly.test:8443,
 		header_up Host {upstream_hostport}
 		header_up X-Forwarded-Host {host}
 	}
-	reverse_proxy /skills* 127.0.0.1:3001 {
-		header_up Host {upstream_hostport}
-		header_up X-Forwarded-Host {host}
-	}
-	reverse_proxy /skills/graphql* 127.0.0.1:3002 {
-		header_up Host {upstream_hostport}
-		header_up X-Forwarded-Host {host}
-	}
+	reverse_proxy /skills* 127.0.0.1:3001
+	reverse_proxy /skills/graphql* 127.0.0.1:3002
 }
 
 # to test if port forwarding, dnsmasq, and caddy are working:
