@@ -1,8 +1,6 @@
 # Install dependencies via brew bundle
 # https://github.com/Homebrew/homebrew-bundle
 
-# lessons app needs this until we remove mimemagic dependency
-brew "shared-mime-info"
 tap "heroku/brew"
 brew "heroku"
 brew "wget"
