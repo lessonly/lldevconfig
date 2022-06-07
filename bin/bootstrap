@@ -111,7 +111,11 @@ then
     # noop as already exists
     echo "asdf.sh already configured"
 else
-  echo -e "\n. $(brew --prefix asdf)/libexec/asdf.sh" >> ${ZDOTDIR:-~}/.zshrc
+  if [[ $(uname -m) == 'arm64' ]]; then
+    echo -e "\n. $(brew --prefix asdf)/asdf/asdf.sh" >> ${ZDOTDIR:-~}/.zshrc
+  else
+    echo -e "\n. $(brew --prefix asdf)/libexec/asdf.sh" >> ${ZDOTDIR:-~}/.zshrc
+  fi
   FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}" >> ~/.zprofile
 fi
 
