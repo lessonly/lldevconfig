@@ -50,6 +50,8 @@ brew services restart caddy
 # dnsmasq handles the local dns translation from *.lessonly.test -> 127.0.0.1
 # install dnsmasq config
 cp bin/dnsmasq.conf $(brew --prefix)/etc/dnsmasq.conf
+# make /etc/resolver directory if it does not exist
+sudo mkdir -p /etc/resolver
 # install our resolver
 sudo cp bin/lessonly-resolver /etc/resolver/lessonly.test
 # stop (if necessary) and start the service formula immediately and register it to launch at boot.
