@@ -62,9 +62,9 @@ sudo brew services restart dnsmasq
 # copy port forwarding anchor file
 sudo cp bin/test.lessonly.anchor /etc/pf.anchors/test.lessonly
 # copy boot script to setup port forwarding
-cp bin/lldev-network-setup.sh /usr/local/bin/lldev-network-setup.sh
+sudo cp bin/lldev-network-setup.sh /usr/local/bin/lldev-network-setup.sh
 # manually run script
-sudo /usr/local/bin/lldev-network-setup.sh
+sudo sh /usr/local/bin/lldev-network-setup.sh
 # set script to run on boot
 pfservice=$(sudo launchctl list | grep test.lessonly.network-setup)
 if [ ! "$pfservice" ] ; then
@@ -114,7 +114,7 @@ then
     echo "asdf.sh already configured"
 else
   if [[ $(uname -m) == 'arm64' ]]; then
-    echo -e "\n. $(brew --prefix asdf)/asdf/asdf.sh" >> ${ZDOTDIR:-~}/.zshrc
+    echo -e "\n. $(brew --prefix asdf)/asdf.sh" >> ${ZDOTDIR:-~}/.zshrc
   else
     echo -e "\n. $(brew --prefix asdf)/libexec/asdf.sh" >> ${ZDOTDIR:-~}/.zshrc
   fi
