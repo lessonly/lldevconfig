@@ -26,6 +26,8 @@ which -s brew
 if [[ $? != 0 ]] ; then
   echo "Homebrew not found. Installing it..."
   ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+  echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> "/Users/$CURRENT_USER/.zprofile"
+  eval "$(/opt/homebrew/bin/brew shellenv)"
 else
   echo "Homebrew found. Updating it..."
   brew update
