@@ -11,4 +11,4 @@ brew "postgresql" # provides pgdump, psql
 brew "zsh"
 brew "asdf"
 brew "python@3.9" # asdf (Node 14.X needs python3.9)
-brew  "gpg" # asdf (yarn needs gpg installed)
+brew "gpg" # asdf (yarn needs gpg installed)
