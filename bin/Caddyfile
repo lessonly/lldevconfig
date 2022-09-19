@@ -14,6 +14,7 @@
 	log {
 		output file /usr/local/var/log/caddy/caddy_access.log
 	}
+	admin localhost:3019
 }
 
 # explicitly list http endpoints so caddy doesn't do
