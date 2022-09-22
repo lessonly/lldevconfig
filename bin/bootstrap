@@ -43,10 +43,11 @@ brew bundle -v
 # - reverse proxy for local *.lessonly.test
 # - automatic local certs
 cp bin/Caddyfile $(brew --prefix)/etc/Caddyfile
+caddy reload --config bin/Caddyfile
 # https://caddyserver.com/docs/automatic-https#local-https
 # add/trust caddy's local root CA certificate
 # it generates intermediate certificates from the root which are used to sign individual site certificates
-caddy trust
+caddy trust --config bin/Caddyfile
 # stop (if necessary) and start the service formula immediately and register it to launch at login.
 brew services restart caddy
 
