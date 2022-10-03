@@ -1,6 +1,6 @@
 # Lessonly Local Dev Config
 
-This project is intended for the purposes of making it easy to share and maintain development environtment configuration for lessonly developers.
+This project is intended for the purposes of making it easy to share and maintain development environment configuration for lessonly developers.
 
 When you receive your Lessonly MacBook, start here before setting up other tools.
 
@@ -46,7 +46,8 @@ This is a temporary workaround for some preinstalled seismic software colliding 
 3. Restart computer **Do not skip this step**
 4. Reinstall dnsmasq
    - `brew reinstall dnsmasq`
-   - Brew may ask you to remove some files do so with `sudo rm -rf /opt/homebrew/Cellar/dnsmasq/2.86.reinstall`
+   - Brew may ask you to remove some files, do so with the suggested terminal command
+     - For Example: `sudo rm -rf /opt/homebrew/Cellar/dnsmasq/2.87.reinstall`
    - After removing the needed file, run reinstall again `brew reinstall dnsmasq`
 5. Verify dnsmasq is now in the "started" status `sudo brew services list`
 6. Verify `curl https://caddystatus.lessonly.test`
