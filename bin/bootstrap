@@ -25,7 +25,8 @@ defaults write -g ApplePressAndHoldEnabled -bool false
 which -s brew
 if [[ $? != 0 ]] ; then
   echo "Homebrew not found. Installing it..."
-  ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+  # The Ruby Homebrew installer has been rewritten in Bash
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
   # If installed to /opt/homebrew, setup homebrew in path for future and current shell
   if [[ -f "/opt/homebrew/bin/brew" ]]; then
     echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> "/Users/$CURRENT_USER/.zprofile"
@@ -87,7 +88,8 @@ if [[ $? != 0 ]]; then
   echo "Github SSH key not found. Generating..."
   echo -en "\n\033[1mEnter your the email address you'll use for Github:\033[0m "
   read email
-  ssh-keygen -f ~/.ssh/github -t rsa -b 4096 -C $email
+  # use recommended ed25519 over rsa
+  ssh-keygen -f ~/.ssh/github -t ed25519 -C $email
 
   echo "Adding SSH key to ssh-agent and keychain"
   eval "$(ssh-agent -s)"
