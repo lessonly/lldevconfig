@@ -93,7 +93,7 @@ if [[ $? != 0 ]]; then
 
   echo "Adding SSH key to ssh-agent and keychain"
   eval "$(ssh-agent -s)"
-  ssh-add -K ~/.ssh/github
+  ssh-add --apple-use-keychain ~/.ssh/github
   if ! grep "~/.ssh/github" ~/.ssh/config; then
     echo -e '\n\nHost Github\n  HostName github.com\n  AddKeysToAgent yes\n  UseKeychain yes\n  IdentityFile ~/.ssh/github' >> ~/.ssh/config
   fi
