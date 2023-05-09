@@ -1,5 +1,7 @@
 # Added by lldevconfig/bin/bootstrap
-# To allow friendly lessonly.test domain
+# To enable friendly lessonly.test domains
+# AUTOMATICALLY GENERATED DO NOT MODIFY
+# Please update file instead – https://github.com/lessonly/lldevconfig/tree/main/bin/hosts
 # Caddy Testing Domain
 127.0.0.1 caddystatus.lessonly.test
 # Lessonly Core
@@ -14,6 +16,6 @@
 127.0.0.1 seismicintegration.lessonly.test
 127.0.0.1 signup.lessonly.test
 127.0.0.1 webhook.lessonly.test
-# ∨ Add Personal Lessonly Core Domains below ∨
+# Additional Company Subdomains Lessonly Core
 127.0.0.1 small.lessonly.test
 # End of section
