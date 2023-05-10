@@ -4,18 +4,22 @@
 # Please update file instead – https://github.com/lessonly/lldevconfig/tree/main/bin/hosts
 # Caddy Testing Domain
 127.0.0.1 caddystatus.lessonly.test
-# Lessonly Core
+# Readiness Domains
 127.0.0.1 lessonly.test
-127.0.0.1 dev.lessonly.test
 127.0.0.1 admin.lessonly.test
 127.0.0.1 api.lessonly.test
 127.0.0.1 app.lessonly.test
 127.0.0.1 auth.lessonly.test
+127.0.0.1 cypress.lessonly.test
+127.0.0.1 cypress-empty.lessonly.test
 127.0.0.1 extensions.lessonly.test
 127.0.0.1 scim.lessonly.test
 127.0.0.1 seismicintegration.lessonly.test
 127.0.0.1 signup.lessonly.test
 127.0.0.1 webhook.lessonly.test
-# Additional Company Subdomains Lessonly Core
+# Readiness Company Subdomains
+127.0.0.1 dev.lessonly.test
+127.0.0.1 empty.lessonly.test
+127.0.0.1 new.lessonly.test
 127.0.0.1 small.lessonly.test
 # End of section
