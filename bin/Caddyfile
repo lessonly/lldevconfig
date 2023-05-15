@@ -39,7 +39,7 @@ lessonly.test:8443,
 	reverse_proxy /skills/graphql* 127.0.0.1:3002
 }
 
-# to test if port forwarding, dnsmasq, and caddy are working:
+# to test if /etc/hosts, port forwarding, and caddy are working:
 # curl -v https://caddystatus.lessonly.test
 http://caddystatus.lessonly.test:8081,
 caddystatus.lessonly.test:8443 {

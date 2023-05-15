@@ -33,25 +33,6 @@ When you receive your Lessonly MacBook, start here before setting up other tools
 
 At this point, you have everything you need to clone a project and follow its setup instructions. We recommend visiting https://github.com/lessonly/lessonly#getting-started and following the setup instructions there, first. That's our core app and most likely where you'll be spending more of your time.
 
-### Apple Silicon MacOS (M1/M2 Cpus)
-
-This is a temporary workaround for some preinstalled seismic software colliding with our local development environment. We are working with security team and helpdesk to alleviate this issue.
-
-1. Verify our custom domain setup
-   - Run this command `curl https://caddystatus.lessonly.test`
-   - If this returns "Caddy works: GET https://caddystatus.lessonly.test/", great you're done! Go setup some projects.
-   - If it doesn't, we need to uninstall some preinstalled software to enable our development environment.
-2. Uninstall Umbrella Roaming Client
-   - `sudo /Applications/OpenDNS\ Roaming\ Client/rcuninstall`
-3. Restart computer **Do not skip this step**
-4. Reinstall dnsmasq
-   - `brew reinstall dnsmasq`
-   - Brew may ask you to remove some files, do so with the suggested terminal command
-     - For Example: `sudo rm -rf /opt/homebrew/Cellar/dnsmasq/2.87.reinstall`
-   - After removing the needed file, run reinstall again `brew reinstall dnsmasq`
-5. Verify dnsmasq is now in the "started" status `sudo brew services list`
-6. Verify `curl https://caddystatus.lessonly.test`
-
 ## Other operating systems
 
 We don't officially support other operating systems right now.
@@ -61,7 +42,7 @@ We don't officially support other operating systems right now.
 This is script sets up 3 things:
 
 - port forwarding of 80 & 443 over to non-standard ports
-- dnsmasq to handle `*.lessonly.test` domains
+- `/etc/hosts` to handle `lessonly.test` domain and common subdomains
 - caddy to handle certificates and reverse proxy to local lessonly
 
 # What is currently included
