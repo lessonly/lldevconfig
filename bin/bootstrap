@@ -17,6 +17,14 @@ if command -v salt &> /dev/null ; then
   brew uninstall nginx
   rm -rf $HOME/.lldev
 fi
+# Uninstall Dnsmasq
+# We new prefer configure /etc/hosts because
+# of port collision with Umbrella Roaming Client
+if command -v dnsmasq &> /dev/null ; then
+  echo "Uninstalling dnsmasq"
+  sudo brew services stop dnsmasq
+  brew uninstall dnsmasq
+fi
 
 # Enable key repeat.  Editors are super awkward without this
 defaults write -g ApplePressAndHoldEnabled -bool false
@@ -39,6 +47,10 @@ fi
 # Install Dependencies via Brewfile
 brew bundle -v
 
+# Configure Local DNS
+echo "Setting up local dns (/etc/hosts)"
+sed -i '' '/# Added by lldevconfig\/bin\/bootstrap/,/# End of section/d' /etc/hosts
+sudo sh -c 'cat bin/hosts >> /etc/hosts'
 
 # Configure Caddy
 # - reverse proxy for local *.lessonly.test
@@ -51,19 +63,6 @@ caddy reload --config bin/Caddyfile
 caddy trust --config bin/Caddyfile
 # stop (if necessary) and start the service formula immediately and register it to launch at login.
 brew services restart caddy
-
-
-# Configure Dnsmasq
-# dnsmasq handles the local dns translation from *.lessonly.test -> 127.0.0.1
-# install dnsmasq config
-cp bin/dnsmasq.conf $(brew --prefix)/etc/dnsmasq.conf
-# make /etc/resolver directory if it does not exist
-sudo mkdir -p /etc/resolver
-# install our resolver
-sudo cp bin/lessonly-resolver /etc/resolver/lessonly.test
-# stop (if necessary) and start the service formula immediately and register it to launch at boot.
-sudo brew services restart dnsmasq
-
 
 # Configure port forwarding
 # copy port forwarding anchor file
