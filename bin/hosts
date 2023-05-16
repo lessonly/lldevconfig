@@ -18,8 +18,10 @@
 127.0.0.1 signup.lessonly.test
 127.0.0.1 webhook.lessonly.test
 # Readiness Company Subdomains
+127.0.0.1 bob.lessonly.test
 127.0.0.1 dev.lessonly.test
 127.0.0.1 empty.lessonly.test
+127.0.0.1 hermanos.lessonly.test
 127.0.0.1 new.lessonly.test
 127.0.0.1 small.lessonly.test
 # End of section
