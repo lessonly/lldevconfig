@@ -48,7 +48,7 @@ brew bundle -v
 
 # Configure Local DNS
 echo "Setting up local dns (/etc/hosts)"
-sed -i '' '/# Added by lldevconfig\/bin\/bootstrap/,/# End of section/d' /etc/hosts
+sudo sed -i '' '/# Added by lldevconfig\/bin\/bootstrap/,/# End of section/d' /etc/hosts
 sudo sh -c 'cat bin/hosts >> /etc/hosts'
 
 # Configure Caddy
