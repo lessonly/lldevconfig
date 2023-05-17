@@ -33,7 +33,8 @@ defaults write -g ApplePressAndHoldEnabled -bool false
 which -s brew
 if [[ $? != 0 ]] ; then
   echo "Homebrew not found. Installing it..."
-  ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+  # The Ruby Homebrew installer has been rewritten in Bash
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
   # If installed to /opt/homebrew, setup homebrew in path for future and current shell
   if [[ -f "/opt/homebrew/bin/brew" ]]; then
     echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> "/Users/$CURRENT_USER/.zprofile"
@@ -81,26 +82,27 @@ fi
 #
 # Github ssh key setup
 #
-stat ~/.ssh/github
+stat ~/.ssh/github_ed25519
 if [[ $? != 0 ]]; then
-  echo "Github SSH key not found. Generating..."
+  echo "Github SSH key (ed25519) not found. Generating..."
   echo -en "\n\033[1mEnter your the email address you'll use for Github:\033[0m "
   read email
-  ssh-keygen -f ~/.ssh/github -t rsa -b 4096 -C $email
+  # use recommended ed25519 over rsa
+  ssh-keygen -f ~/.ssh/github_ed25519 -t ed25519 -C $email
 
   echo "Adding SSH key to ssh-agent and keychain"
   eval "$(ssh-agent -s)"
-  ssh-add -K ~/.ssh/github
-  if ! grep "~/.ssh/github" ~/.ssh/config; then
-    echo -e '\n\nHost Github\n  HostName github.com\n  AddKeysToAgent yes\n  UseKeychain yes\n  IdentityFile ~/.ssh/github' >> ~/.ssh/config
+  ssh-add -K ~/.ssh/github_ed25519
+  if ! grep "~/.ssh/github_ed25519" ~/.ssh/config; then
+    echo -e '\n\nHost Github\n  HostName github.com\n  AddKeysToAgent yes\n  UseKeychain yes\n  IdentityFile ~/.ssh/github_ed25519' >> ~/.ssh/config
   fi
 
   echo "SSH key generated. \033[1mAdd it to Github using these instructions:\033[0m https://help.github.com/en/articles/adding-a-new-ssh-key-to-your-github-account\n"
-  cat ~/.ssh/github.pub
+  cat ~/.ssh/github_ed25519.pub
   echo ""
 
   if which pbcopy > /dev/null; then
-    cat ~/.ssh/github.pub | pbcopy
+    cat ~/.ssh/github_ed25519.pub | pbcopy
     echo "It's been copied into your clipboard, ready to paste into Github."
   fi
 
