@@ -37,6 +37,7 @@ lessonly.test:8443,
 	}
 	reverse_proxy /skills* 127.0.0.1:3001
 	reverse_proxy /skills/graphql* 127.0.0.1:3002
+	reverse_proxy /readinessBffService* 127.0.0.1:3031
 }
 
 # to test if /etc/hosts, port forwarding, and caddy are working:
