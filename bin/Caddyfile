@@ -39,6 +39,21 @@ lessonly.test:8443,
 	reverse_proxy /skills/graphql* 127.0.0.1:3002
 }
 
+http://readiness-bff.test:8081,
+readiness-bff.test:8443 {
+	encode zstd gzip
+
+	@https {
+		protocol https
+	}
+	header @https Strict-Transport-Security "max-age=31536000; includeSubDomains; always"
+
+	# https://caddyserver.com/docs/caddyfile/directives/reverse_proxy#https
+	reverse_proxy 127.0.0.1:3031 {
+		header_up Host {upstream_hostport}
+	}
+}
+
 # to test if /etc/hosts, port forwarding, and caddy are working:
 # curl -v https://caddystatus.lessonly.test
 http://caddystatus.lessonly.test:8081,
