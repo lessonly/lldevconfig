@@ -1,9 +1,28 @@
 #!/bin/bash
 CURRENT_USER=`whoami`
 
-if [ $CURRENT_USER = "root" ]; then
-echo "Please run this as your normal user, not root"
-exit 1
+if [ "$CURRENT_USER" = "root" ]; then
+  echo "Please run this as your normal user, not root"
+  exit 1
+fi
+
+# Enable key repeat.  Editors are super awkward without this
+defaults write -g ApplePressAndHoldEnabled -bool false
+
+# Install Homebrew
+which -s brew
+if [[ $? != 0 ]] ; then
+  echo "Homebrew not found. Installing it..."
+  # The Ruby Homebrew installer has been rewritten in Bash
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  # If installed to /opt/homebrew, setup homebrew in path for future and current shell
+  if [[ -f "/opt/homebrew/bin/brew" ]]; then
+    echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> "/Users/$CURRENT_USER/.zprofile"
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+  fi
+else
+  echo "Homebrew found. Updating it..."
+  brew update
 fi
 
 # Uninstall salt
@@ -26,24 +45,6 @@ if command -v dnsmasq &> /dev/null ; then
   brew uninstall dnsmasq
 fi
 
-# Enable key repeat.  Editors are super awkward without this
-defaults write -g ApplePressAndHoldEnabled -bool false
-
-# Install Homebrew
-which -s brew
-if [[ $? != 0 ]] ; then
-  echo "Homebrew not found. Installing it..."
-  # The Ruby Homebrew installer has been rewritten in Bash
-  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-  # If installed to /opt/homebrew, setup homebrew in path for future and current shell
-  if [[ -f "/opt/homebrew/bin/brew" ]]; then
-    echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> "/Users/$CURRENT_USER/.zprofile"
-    eval "$(/opt/homebrew/bin/brew shellenv)"
-  fi
-else
-  echo "Homebrew found. Updating it..."
-  brew update
-fi
 # Install Dependencies via Brewfile
 brew bundle -v
 
@@ -117,8 +118,8 @@ fi
 # https://asdf-vm.com/guide/getting-started.html#_3-install-asdf
 if grep -q "asdf.sh" ${ZDOTDIR:-~}/.zshrc
 then
-    # noop as already exists
-    echo "asdf.sh already configured"
+  # noop as already exists
+  echo "asdf.sh already configured"
 else
   echo -e "\n$(brew info asdf | grep asdf.sh | sed -e 's/^[ \t]*//')" >> ${ZDOTDIR:-~}/.zshrc
   FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}" >> ~/.zprofile

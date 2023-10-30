@@ -11,10 +11,13 @@ When you receive your Lessonly MacBook, start here before setting up other tools
 1. Open a Terminal window and run `git`. This will prompt you to install Xcode tools. Install it.
 2. Open a browser window to https://github.com and log in to Github.
 3. Download and install [Docker for Mac](https://docs.docker.com/docker-for-mac/install/).
+   - **Note**: Some versions of Docker have problems with network connections, either external, or for local access using Caddy.
+     If you have problems with this, you can try installing an older version of Docker. We've had success with version 4.23.0.
+     You can find older versions here: https://docs.docker.com/desktop/release-notes/
    - Once you have it installed, run and log in to the Docker app. You may need to sign up if you haven't done this before.
 4. In your Terminal window, change to the directory where you want git repositories to go, and clone this repo.
    ```sh
-   git clone https://github.com/lessonly/lldevconfig.git
+   git clone git@github.com:lessonly/lldevconfig.git
    cd lldevconfig
    ```
 5. Run the bootstrap script
@@ -29,7 +32,6 @@ When you receive your Lessonly MacBook, start here before setting up other tools
    - Enter a password to protect your SSH key (you will be asked 3 times)
    - Add your SSH key in Github. It should copy the key and open a page to [the Github SSH keys page](https://github.com/settings/keys) for you to make it easy.
 6. Once this script completes, you should close this window and open a new terminal so that it loads zsh.
-7. If you running a Mac with an Apple silicon CPU (M1/M2) please run the Apple Silicon MacOS laptop steps additionally below before setting up projects just yet.
 
 At this point, you have everything you need to clone a project and follow its setup instructions. We recommend visiting https://github.com/lessonly/lessonly#getting-started and following the setup instructions there, first. That's our core app and most likely where you'll be spending more of your time.
 
