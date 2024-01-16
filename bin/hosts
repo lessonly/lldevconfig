@@ -8,6 +8,7 @@
 127.0.0.1 lessonly.test
 127.0.0.1 admin.lessonly.test
 127.0.0.1 api.lessonly.test
+127.0.0.1 apibackend.lessonly.test
 127.0.0.1 app.lessonly.test
 127.0.0.1 auth.lessonly.test
 127.0.0.1 cypress.lessonly.test
