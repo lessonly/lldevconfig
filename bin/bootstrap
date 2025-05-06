@@ -1,6 +1,9 @@
 #!/bin/bash
 CURRENT_USER=`whoami`
 
+# Matches output file in Caddyfile
+CADDY_LOG_DIR="/usr/local/var/log/caddy"
+
 if [ "$CURRENT_USER" = "root" ]; then
   echo "Please run this as your normal user, not root"
   exit 1
@@ -56,6 +59,18 @@ sudo sh -c 'cat bin/hosts >> /etc/hosts'
 # Configure Caddy
 # - reverse proxy for local *.lessonly.test
 # - automatic local certs
+
+# Make sure Caddy log path exists and is writable by the current user.
+if [ ! -d "$CADDY_LOG_DIR" ] || [ ! -w "$CADDY_LOG_DIR" ]; then
+  echo "Setting up Caddy log directory ($CADDY_LOG_DIR)"
+  sudo mkdir -p $CADDY_LOG_DIR
+  sudo chown -R $CURRENT_USER $CADDY_LOG_DIR
+  chmod -R 755 $CADDY_LOG_DIR
+
+  # Restart service for remaining caddy commands to work
+  brew services restart caddy
+fi
+
 cp bin/Caddyfile $(brew --prefix)/etc/Caddyfile
 caddy reload --config bin/Caddyfile
 # https://caddyserver.com/docs/automatic-https#local-https
